@@ -19,7 +19,7 @@ if uploaded_file is not None:
     tfile = tempfile.NamedTemporaryFile(delete=False) 
     tfile.write(uploaded_file.read())
 
-    path = tempfile.NamedTemporaryFile(suffix='.mkv', delete=False)
+    path = tempfile.NamedTemporaryFile(suffix='.mp4', delete=False)
 
     model.detect_video(tfile.name, path.name)
 
