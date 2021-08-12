@@ -282,7 +282,7 @@ def detect_video(video_path, output_path, obj_thresh = 0.4, nms_thresh = 0.45, d
     if not vid.isOpened():
         raise IOError("Couldn't open webcam or video")
     video_FourCC    = int(vid.get(cv2.CAP_PROP_FOURCC))
-    video_FourCC = cv2.VideoWriter_fourcc(*'avc1')
+    video_FourCC = cv2.VideoWriter_fourcc(*'mp4v')
     video_fps       = vid.get(cv2.CAP_PROP_FPS)
     video_size      = (int(vid.get(cv2.CAP_PROP_FRAME_WIDTH)),
                         int(vid.get(cv2.CAP_PROP_FRAME_HEIGHT)))
