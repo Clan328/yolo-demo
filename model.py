@@ -27,8 +27,21 @@ LABELS = ["person", "bicycle", "car", "motorbike", "aeroplane", "bus", "train", 
               "remote", "keyboard", "cell phone", "microwave", "oven", "toaster", "sink", "refrigerator", \
               "book", "clock", "vase", "scissors", "teddy bear", "hair drier", "toothbrush"]  
 
-darknet = tf.keras.models.load_model(MODEL_PATH)
+global darknet #darknet = tf.keras.models.load_model(MODEL_PATH)
 anchors = [[[116,90], [156,198], [373,326]], [[30,61], [62,45], [59,119]], [[10,13], [16,30], [33,23]]]
+
+@st.cache
+def download_weights():
+  if not os.path.exists(MODEL_PATH):
+      with st.spinner("Downloading weights..."):
+          os.system("wget --no-check-certificate -O data/yolo_weights.h5 \"https://storage.googleapis.com/inspirit-ai-data-bucket-1/Data/AI%20Scholars/Sessions%206%20-%2010%20(Projects)/Project%20-%20%20Object%20Detection%20(Autonomous%20Vehicles)/yolo.h5\"")
+
+@st.cache
+def load_model():
+    download_weights()
+    with st.spinner("Loading model..."):
+        global darknet
+        darknet = tf.keras.models.load_model(MODEL_PATH)
 
 class BoundBox:
     def __init__(self, xmin, ymin, xmax, ymax, objness = None, classes = None):
@@ -266,18 +279,19 @@ def draw_boxes(image_, boxes, LABELS):
         del draw
     return image
 
-def detect_image(image_pil, obj_thresh = 0.4, nms_thresh = 0.45, darknet=darknet, net_h=416, net_w=416, anchors=anchors, labels=LABELS):
+def detect_image(image_pil, obj_thresh = 0.4, nms_thresh = 0.45, net_h=416, net_w=416, anchors=anchors, labels=LABELS):
   image_w, image_h = image_pil.size
 
   new_image = preprocess_input(image_pil, net_h, net_w)
 
+  global darknet
   yolo_outputs = darknet.predict(new_image)
 
   boxes = decode_netout(yolo_outputs, obj_thresh, anchors, image_h, image_w, net_h, net_w)
   boxes = do_nms(boxes, nms_thresh, obj_thresh)
   return draw_boxes(image_pil, boxes, labels)
 
-def detect_video(video_path, output_path, obj_thresh = 0.4, nms_thresh = 0.45, darknet=darknet, net_h=416, net_w=416, anchors=anchors, labels=LABELS):
+def detect_video(video_path, output_path, obj_thresh = 0.4, nms_thresh = 0.45, net_h=416, net_w=416, anchors=anchors, labels=LABELS):
     vid = cv2.VideoCapture(video_path)
     if not vid.isOpened():
         raise IOError("Couldn't open webcam or video")
@@ -303,7 +317,7 @@ def detect_video(video_path, output_path, obj_thresh = 0.4, nms_thresh = 0.45, d
       if ret:
           new_frame = frame
           image_pil = Image.fromarray(cv2.cvtColor(new_frame, cv2.COLOR_BGR2RGB))
-          image_pil = detect_image(image_pil, obj_thresh, nms_thresh, darknet, net_h, net_w, anchors, labels)
+          image_pil = detect_image(image_pil, obj_thresh, nms_thresh, net_h, net_w, anchors, labels)
           new_frame = cv2.cvtColor(np.asarray(image_pil), cv2.COLOR_RGB2BGR)
         
           out.write(new_frame)
