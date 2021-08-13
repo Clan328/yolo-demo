@@ -38,11 +38,13 @@ def download_weights():
 
 @st.cache(allow_output_mutation=True)
 def load_model():
+    #st.text("Caching missed")
     download_weights()
     with st.spinner("Loading model..."):
         darknet = tf.keras.models.load_model(MODEL_PATH)
     return darknet
 
+#st.text("Caching called")
 darknet = load_model()
 
 class BoundBox:
