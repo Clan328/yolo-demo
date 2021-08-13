@@ -5,7 +5,7 @@ import os
 
 st.set_page_config(page_title="YOLO Demo", layout="wide")
 
-os.system("pip list")
+os.system("sudo reboot")
 os.system("less /proc/meminfo")
 
 # if not os.path.exists("data/yolo_weights.h5"):
