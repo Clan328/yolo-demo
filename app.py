@@ -5,9 +5,7 @@ import os
 
 st.set_page_config(page_title="YOLO Demo", layout="wide")
 
-os.system("cd ~/.local/share/Trash")
 os.system("ls")
-os.system("less /proc/meminfo")
 
 # if not os.path.exists("data/yolo_weights.h5"):
 #     with st.spinner("Loading model..."):
