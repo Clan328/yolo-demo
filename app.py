@@ -5,7 +5,7 @@ import os
 
 st.set_page_config(page_title="YOLO Demo", layout="wide")
 
-os.system("ls")
+os.system("ls data")
 
 # if not os.path.exists("data/yolo_weights.h5"):
 #     with st.spinner("Loading model..."):
