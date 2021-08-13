@@ -3,14 +3,14 @@ from PIL import Image
 import tempfile
 import os
 
+st.set_page_config(page_title="YOLO Demo", layout="wide")
+
 if not os.path.exists("data/yolo_weights.h5"):
     with st.spinner("Loading model..."):
         os.system("wget --no-check-certificate -O data/yolo_weights.h5 \"https://storage.googleapis.com/inspirit-ai-data-bucket-1/Data/AI%20Scholars/Sessions%206%20-%2010%20(Projects)/Project%20-%20%20Object%20Detection%20(Autonomous%20Vehicles)/yolo.h5\"")
         from model import detect_image, detect_video
 else:
     from model import detect_image, detect_video
-
-st.set_page_config(page_title="YOLO Demo", layout="wide")
 
 st.title("YOLO Demo")
 st.header("This YOLO v3 demo recognizes objects in images and videos.")
