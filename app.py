@@ -1,7 +1,7 @@
 import streamlit as st
-from PIL import Image
-import tempfile
-import os
+# from PIL import Image
+# import tempfile
+# import os
 
 st.set_page_config(page_title="YOLO Demo", layout="wide")
 
