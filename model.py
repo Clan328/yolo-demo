@@ -14,7 +14,7 @@ import streamlit as st
 DATA_ROOT = os.path.dirname(__file__) + '/data'
 FONTS_ROOT = os.path.dirname(__file__) + '/fonts'
 
-MODEL_PATH = os.path.join(DATA_ROOT, 'yolo.h5')
+MODEL_PATH = os.path.join(DATA_ROOT, 'yolo_weights.h5')
 
 LABELS = ["person", "bicycle", "car", "motorbike", "aeroplane", "bus", "train", "truck", \
               "boat", "traffic light", "fire hydrant", "stop sign", "parking meter", "bench", \
