@@ -1,12 +1,10 @@
 import streamlit as st
 from PIL import Image
 import tempfile
-import os
-from model import load_model, detect_image, detect_video
 
 st.set_page_config(page_title="YOLO Demo", layout="wide")
 
-load_model()
+from model import detect_image, detect_video
 
 st.title("YOLO Demo")
 st.header("This YOLO v3 demo recognizes objects in images and videos.")
