@@ -11,8 +11,6 @@ import colorsys
 import tensorflow as tf
 import streamlit as st
 
-os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
-
 DATA_ROOT = os.path.dirname(__file__) + '/data'
 FONTS_ROOT = os.path.dirname(__file__) + '/fonts'
 
