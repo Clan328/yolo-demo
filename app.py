@@ -1,9 +1,12 @@
 import streamlit as st
 # from PIL import Image
 # import tempfile
-# import os
+import os
 
 st.set_page_config(page_title="YOLO Demo", layout="wide")
+
+os.system("pip3 list")
+os.system("free")
 
 # if not os.path.exists("data/yolo_weights.h5"):
 #     with st.spinner("Loading model..."):
